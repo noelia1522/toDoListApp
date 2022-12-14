@@ -16,22 +16,24 @@ app.use(express.static(__dirname + '/public'))// para las imagenes
 
 
 app.get("/", (req,res)=>{
-    res.render('index', {name:"Nath", length:5});
+    res.render('index', {name:"Nath", length:5,/* ** */ tasks:tasksArray});
 
 })
 
 app.route("/tasks")
 
+//iterate the array adding elements with updated id
 .post(urlencodedParser,(req,res)=>{
     console.log(req.body.newTask);
+    let newId= tasksArray.length +1;
     let newTask = {
-        id:4,
+        id:newId++,
         text: req.body.newTask,
         completed: false
     }
-    tasks.push(newTask);
-    res.send(tasks)
-    //res.redirect("/");
+    tasksArray.push(newTask);
+    //res.send(tasksArray);
+    res.redirect("/");
 })
 
 //app.get("/", (req, res) => {
@@ -46,8 +48,8 @@ app.listen({ path: hostname, port: port }, (error) => {
 
 let user;
 
-
-let tasks = [ //array of objects
+ //array of objects
+let tasksArray = [
     {
         id: 1,
         text: "coding",
@@ -68,4 +70,15 @@ let tasks = [ //array of objects
         completed: false
 
     }
+
 ]
+
+//delete task
+
+app.delete("/index.html",(req,res)=>{
+    res.send("DELETE Request Called")
+})
+
+
+
+

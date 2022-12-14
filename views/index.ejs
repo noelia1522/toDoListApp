@@ -13,11 +13,11 @@
     <h2>Hello! Your are in index file!</h2>
 
     <!--everytime it send this ejs it also send the variable name with this value-->
-    <h3><%=name%>, your created me!</h3>
+    <!---<h3><%=name%>, your created me!</h3>
     <h3> </h3>
     <% for(let i=0; i<length; i++){ %>
         <p>I will repeat this 5 times</p>
-        <% } %>
+        <% } %> -->
 
     <div class="container">
         <h2>A simple To do List APP</h2>
@@ -28,8 +28,16 @@
             </button>
         </form> 
 
-
+        <div>
+            
+        </div>
+        <% tasks.forEach(task =>{ %>
+            <p><%=task.text %></p> <button id="<%=task.id %>" > Delete</button></span>
+        <% }) %>
+       
     </div>
-    
+    <script>let delButton = document.getElementsById("deleteButtn");
+        delButton.addEventListener('click', function(event){})
+        </script>
 </body>
 </html>
