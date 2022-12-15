@@ -12,15 +12,8 @@
 </head>
 
 <body>
+    <nav>Login</nav>
     <div class="container">
-        <!--everytime it send this ejs it also send the variable name with this value-->
-        <!---<h3><%=name%>, your created me!</h3>
-    <h3> </h3>
-    <% for(let i=0; i<length; i++){ %>
-        <p>I will repeat this 5 times</p>
-        <% } %> -->
-
-
         <h2>A simple To do List APP</h2>
         <form action="http://localhost:3000/tasks" method="POST">
             <input type="text" name="newTask" placeholder="Add a New Task">
@@ -31,7 +24,7 @@
 
         <div >
             
-                <% tasks.forEach(task=>{ %>
+                <% task.forEach(task=>{ %>
                         <div class="task">
                             <span><%=task.text %></span>
                     <button class="buttn" id="<%=task.id %>"> Delete</button></div>
