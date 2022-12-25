@@ -53,6 +53,7 @@
 
  //get login page
 app.get("/login", (req, res) => {
+    req
     res.sendFile(__dirname + "/login.html");
 })
 

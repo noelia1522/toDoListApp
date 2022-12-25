@@ -1,32 +1,7 @@
 [
   {
-    "id": "8a09152a-1e80-4e0c-a9c8-676dc36e6748",
+    "id": "9e3ac645-914d-4dbe-8a75-1da7bc9dfc49",
     "text": "run",
-    "completed": false
-  },
-  {
-    "id": "a25f29fd-e84c-4fcb-a097-e19556a27318",
-    "text": "walk",
-    "completed": false
-  },
-  {
-    "id": "57e17ce5-fc36-4124-99db-3806c34aa04d",
-    "text": "walk",
-    "completed": false
-  },
-  {
-    "id": "702664b0-973c-4817-a54d-9a40c732c81e",
-    "text": "walk",
-    "completed": false
-  },
-  {
-    "id": "17453861-6dc1-4bfc-8b19-4a4037c61e22",
-    "text": "run",
-    "completed": false
-  },
-  {
-    "id": "d0642c93-97d8-47e6-907d-a45f8baad779",
-    "text": "walk",
     "completed": false
   }
 ]

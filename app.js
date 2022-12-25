@@ -24,3 +24,16 @@ app.listen({ path: hostname, port: port }, (error) => {
     else console.log("Server is running on port 3000..");
 
 })
+
+//get login page
+app.get("/login", (req, res) => {
+    res.sendFile(__dirname + "/login.html");
+})
+
+//take the username and the email and display it in console and display received message.
+
+app.post("/login",(req, res) => {
+    console.log(req.body);
+    res.redirect("/tasks");
+})
+
