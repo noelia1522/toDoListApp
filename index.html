@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1> </h1>
-    <button onclick = createUser()>Create users</button>
+    <button onclick="createUser()">Create users</button>
     <script>
-        window.onload = function(){fetch("/users")
-        .then(response=>response.json())
-        .then(data =>{
-            console.log(data);
-            document.querySelector("h1").innerHTML = data.name
-            
-        })
-    }
-        function createUser(){
+        
+        window.onload = function () {
+            fetch("/users")
+            .then(response => response.json()) 
+            .then(data => {
+                console.log(data);
+                data.forEach(element =>{
+                document.querySelector("h1").innerHTML =  element.name})
+            })
+        };
+        function createUser() {
+            fetch("/users"), {
+                method: "POST",
+                headers: { "Content-Type": "application/json " },
+                body: JSON.stringify({
+                    name: "asdasd", email: "nm@gmail.com", age: 22
+                })
+            }
 
-        }
+        };
 
       //document.querySelector("h1").innerHTML = "Happy New Year!"}
-      </script>
+    </script>
 </body>
+
 </html>

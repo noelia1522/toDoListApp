@@ -7,14 +7,14 @@ async function getUser(req,res){
     const users = await userModel.find({});
     //const users = await userModel.findOne({age:gt});
     console.log(users);
-    res.send=(users);
+    console.log("algo");
+    res.send(users);
    /* let userDatabaseJSON = fs.readFileSync("./public/storage.json");
     const userJSON=JSON.parse(userDatabaseJSON);
     res.render("user", user=userJSON);*/
 }
 
 function getUserId(req,res){
-
 
     /*
     let userDatabaseJSON= fs.readFileSync("./public/storage.json");
@@ -25,17 +25,14 @@ function getUserId(req,res){
 
 async function createUser(req,res){
     const user1 = await userModel.create({
-    name:"Nath",
-    email: "nm@gmail.com",
-    age: 22
+    name: req.body.name,
+    email: req.body.email,
+    age: req.body.age
 
 })
 console.log(user1);
 console.log("User1 is created")}
 ;
-
-
-
 
     /*
     console.log("new user is :", req.body.newuser); 

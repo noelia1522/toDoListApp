@@ -25,7 +25,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))// para las imagenes
 
 app.use("/tasks", taskRoutes);
-app.use("/user", userRoutes);
+app.use("/users", userRoutes);
 
 
 //get main page

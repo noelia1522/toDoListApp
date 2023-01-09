@@ -6,7 +6,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get("/", userController.getUser);
 //router.get("/:id", userController.getUserById);
-router.get("/create", userController.createUser)
-
+router.get("/", userController.getUser);
+router.post("/", urlencodedParser, userController.createUser);
 
 module.exports = router;
