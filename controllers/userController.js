@@ -41,6 +41,20 @@ res.redirect("/");
 }
 
 
+async function deleteUser(req, res) {
+    const user = await userModel.deleteOne({name: req.params.name});
+    console.log(user);
+    res.json({message: "User deleted!"});
+    
+    //ADD ERROR HANDLING IN TRY/CATCH!
+}
+
+
+
+
+module.exports = {getUser,createUser,getUserName, deleteUser};
+
+
     /*
     console.log("new user is :", req.body.newuser); 
     let newUser = {
@@ -58,5 +72,3 @@ res.redirect("/");
     })*/
 
 
-
-module.exports = {getUser,createUser,getUserName};

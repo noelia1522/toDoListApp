@@ -11,11 +11,11 @@
 
 <body>
     <h1> </h1>
-    
+
     <form action="http://localhost:3001/users" , method="POST" id="login">
         <div>
             <h2>Write user information</h2>
-            
+
             <ul>
                 <li>
                     <label for="name">Name </label>
@@ -35,23 +35,45 @@
         </div>
     </form>
     <h2>User List</h2>
-    <ul id="algo"></ul>
-    
+    <ul id="algo">
+    </ul>
+
     <script>
-        let users= document.getElementById("algo")
+        let users = document.getElementById("algo")
         window.onload = function () {
             fetch("/users")
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(element => {
-                        let listUser= document.createElement("li")
-                        listUser.innerHTML = element.name  
+
+                        let listUser = document.createElement("li")
+                        listUser.innerHTML = element.name;
+
+                        let doneCheckbox = document.createElement("input");
+                        doneCheckbox.type = 'checkbox';
+                        doneCheckbox.setAttribute('class', 'done-checkbox');
+
                         users.appendChild(listUser);
+                        users.append(doneCheckbox);
+
+
                     })
-                   
+                    let checkboxes = document.querySelectorAll("input[type=checkbox]");
+                    for (let check of checkboxes) {
+                        check.addEventListener('change', userChecked);
+                        console.log("clicked")
+                    }
+                    function userChecked() {
+                        let userCheck = this.previousElementSibling;
+                        userCheck.classList.toggle('checked')
+                    }
                 })
-                
+
         };
+
+
+
+
 
       //document.querySelector("h1").innerHTML = "Happy New Year!"}
     </script>

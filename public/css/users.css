@@ -24,4 +24,6 @@ li{
     
 }
 
-
+.checked{
+    text-decoration: line-through;
+}
