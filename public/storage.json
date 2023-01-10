@@ -3,5 +3,15 @@
     "id": "9e3ac645-914d-4dbe-8a75-1da7bc9dfc49",
     "text": "run",
     "completed": false
+  },
+  {
+    "id": "637abfea-4b0b-4f75-b976-ef9d9f1ff60f",
+    "text": "walk",
+    "completed": false
+  },
+  {
+    "id": "edbba57c-1ad1-4146-8afe-aad0b6d128b7",
+    "text": "sleep",
+    "completed": false
   }
 ]

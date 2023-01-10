@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
-router.get("/", userController.getUser);
 //router.get("/:id", userController.getUserById);
 router.get("/", userController.getUser);
 router.post("/", urlencodedParser, userController.createUser);

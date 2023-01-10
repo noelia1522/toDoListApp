@@ -50,7 +50,3 @@ app.post("/login", (req, res) => {
     console.log(req.body);
     res.redirect("/tasks");
 })
-
-app.get("/user/create", (req,res)=>{
-    
-})
