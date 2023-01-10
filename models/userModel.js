@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
 
     name:{
-        type: String,
         unique: true,
-uppercase: true
+        type: String,
+    uppercase: true
     },
     email:{
         type: String,
@@ -14,11 +14,16 @@ uppercase: true
 
     age:{
         type:Number,
-        validator:{
-            validator:a => a > 18,
-            message: "you are under 18! you cannot enter!"
-        }
-    } 
+        min:18
+        //validator:{
+           // validator:a => a > 18,
+           // message: "you are under 18! you cannot enter!"
+        },
+    
+    parent: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User" //objectId is refereing to User collection
+    }
 
 })
 

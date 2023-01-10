@@ -13,8 +13,12 @@ async function getUser(req,res){
     res.render("user", user=userJSON);*/
 }
 
-function getUserId(req,res){
-
+async function getUserName(req,res){
+    const user= await userModel.findOne({name: req.params.name})
+    user.parent = "63bd38ae9388174f2165a904";
+    await user.save();
+    res.send(user);
+    
     /*
     let userDatabaseJSON= fs.readFileSync("./public/storage.json");
     const userJSON= JSON.parse(userDatabaseJSON);
@@ -33,8 +37,8 @@ async function createUser(req,res){
 })
 console.log(user1);
 console.log("User1 is created")
+res.redirect("/");
 }
-
 
 
     /*
@@ -55,4 +59,4 @@ console.log("User1 is created")
 
 
 
-module.exports = {getUser,createUser,getUserId};
+module.exports = {getUser,createUser,getUserName};

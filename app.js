@@ -8,13 +8,13 @@ const userRoutes = require("./routes/userRoutes");
 
 dotenv.config();
 const hostname = "localhost";
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 //Don't forget to start your DataBase server first!!
 //Check the status to make sure the server is running.
-const DB_SERVER = "mongodb://127.0.0.1:27017";
-const database = "toDoList";
+//const DB_SERVER = "mongodb://127.0.0.1:27017";
+//const database = "toDoList";
 mongoose.set('strictQuery', true);
 mongoose.connect(`${process.env.DB_SERVER}`)
     .then(() => { console.log("Connected to database server..."); })

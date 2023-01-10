@@ -11,12 +11,11 @@
 
 <body>
     <h1> </h1>
-
-
-    </form>
-
-    <form action="http://localhost:3000/users" , method="POST" id="login">
+    
+    <form action="http://localhost:3001/users" , method="POST" id="login">
         <div>
+            <h2>Write user information</h2>
+            
             <ul>
                 <li>
                     <label for="name">Name </label>
@@ -35,19 +34,23 @@
             <input type="submit"></submit>
         </div>
     </form>
-
+    <h2>User List</h2>
+    <ul id="algo"></ul>
+    
     <script>
-
+        let users= document.getElementById("algo")
         window.onload = function () {
             fetch("/users")
                 .then(response => response.json())
                 .then(data => {
                     data.forEach(element => {
-                        document.querySelector("h1").innerHTML = element.name
-                        console.log(element.name)
+                        let listUser= document.createElement("li")
+                        listUser.innerHTML = element.name  
+                        users.appendChild(listUser);
                     })
-
+                   
                 })
+                
         };
 
       //document.querySelector("h1").innerHTML = "Happy New Year!"}
