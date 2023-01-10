@@ -5,7 +5,7 @@ const userModel = require("../models/userModel")
 
 async function getUser(req,res){
     const users = await userModel.find({});
-    //const users = await userModel.findOne({age:gt});
+    //const users = await userModel.findOne({age: {$gt:30}});
     console.log(users);
     res.send(users);
    /* let userDatabaseJSON = fs.readFileSync("./public/storage.json");
@@ -24,6 +24,8 @@ function getUserId(req,res){
 
 async function createUser(req,res){
     const user1 = await userModel.create({
+//aqui coges los valores del input (html) extraidos de lo que insertas en la pagina
+//es la parte del user_name, user_email etc lo que tiene que coincidir con el html
     name: req.body.user_name,
     email: req.body.user_email,
     age: req.body.user_age

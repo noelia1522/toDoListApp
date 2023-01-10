@@ -1,0 +1,27 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: medium;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+
+form{
+    background-color: cornsilk;
+    height: 300px;
+    width: 500px;
+    display: flex;
+}
+
+div{
+    
+    height: 150px;
+    width:150px;
+
+}
+li{
+    list-style: none;
+    
+}
+
+

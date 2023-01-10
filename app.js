@@ -2,10 +2,11 @@
 const express = require("express"); //create the server
 const static = require("serve-static");
 const taskRoutes = require("./routes/taskRoutes");
+const dotenv = require("dotenv")
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 
-
+dotenv.config();
 const hostname = "localhost";
 const port = 3000;
 
@@ -15,7 +16,7 @@ const port = 3000;
 const DB_SERVER = "mongodb://127.0.0.1:27017";
 const database = "toDoList";
 mongoose.set('strictQuery', true);
-mongoose.connect(`${DB_SERVER}/${database}`)
+mongoose.connect(`${process.env.DB_SERVER}`)
     .then(() => { console.log("Connected to database server..."); })
     .catch((err) => { console.log(err); })
 
@@ -35,7 +36,7 @@ app.get("/", (req, res) => {
 })
 app.listen({ path: hostname, port: port }, (error) => {
     if (error) console.log("Error");
-    else console.log("Server is running on port 3000..");
+    else console.log(`Server is running on port ${port}..`);
 
 })
 
