@@ -42,8 +42,11 @@ res.redirect("/");
 
 
 async function deleteUser(req, res) {
+
+
     const user = await userModel.deleteOne({name: req.params.name});
     console.log(user);
+    
     res.json({message: "User deleted!"});
     
     //ADD ERROR HANDLING IN TRY/CATCH!

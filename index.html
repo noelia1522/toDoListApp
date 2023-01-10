@@ -31,9 +31,11 @@
                 </li>
 
             </ul>
-            <input type="submit"></submit>
+            <button onclick=createUser()>Create User</button>  
+              
         </div>
     </form>
+    <button onclick=deleteUser()>Delete User</button> 
     <h2>User List</h2>
     <ul id="algo">
     </ul>
@@ -52,6 +54,7 @@
                         let doneCheckbox = document.createElement("input");
                         doneCheckbox.type = 'checkbox';
                         doneCheckbox.setAttribute('class', 'done-checkbox');
+                        doneCheckbox.value=element.name;
 
                         users.appendChild(listUser);
                         users.append(doneCheckbox);
@@ -69,6 +72,23 @@
                     }
                 })
 
+        };
+
+
+        //funcion para borrar elementos seleccionados
+        function deleteUser() {
+            //coge los que tienen la checkbox marcada 
+            check= document.querySelectorAll("input[type=checkbox]:checked"); 
+            
+            //accede al valor de check[0] (que es name) y borralo
+            fetch(`/users/${check[0].value}`, {
+                method: "DELETE",                
+            }).then(response => response.json())
+            .then(data => {
+                document.querySelector("h1").innerHTML = data.message;
+                window.location="/";
+            })
+            .catch();
         };
 
 
