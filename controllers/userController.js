@@ -26,6 +26,9 @@ async function getUserName(req,res){
     res.send(user);*/
 }
 
+
+///////////////// CREATE USER ///////////////////////
+
 async function createUser(req,res){
     const user1 = await userModel.create({
 //aqui coges los valores del input (html) extraidos de lo que insertas en la pagina
@@ -40,6 +43,8 @@ console.log("User1 is created")
 res.redirect("/");
 }
 
+
+////////////////////// DELETE USER /////////////////////////
 
 async function deleteUser(req, res) {
 
