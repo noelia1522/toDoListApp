@@ -3,28 +3,6 @@ const fs = require("fs");
 const _ = require("lodash");
 const userModel = require("../models/userModel")
 
-async function getUser(req,res){
-    const users = await userModel.find({});
-    //const users = await userModel.findOne({age: {$gt:30}});
-    console.log(users);
-    res.send(users);
-   /* let userDatabaseJSON = fs.readFileSync("./public/storage.json");
-    const userJSON=JSON.parse(userDatabaseJSON);
-    res.render("user", user=userJSON);*/
-}
-
-async function getUserName(req,res){
-    const user= await userModel.findOne({name: req.params.name})
-    user.parent = "63bd38ae9388174f2165a904";
-    await user.save();
-    res.send(user);
-    
-    /*
-    let userDatabaseJSON= fs.readFileSync("./public/storage.json");
-    const userJSON= JSON.parse(userDatabaseJSON);
-    const user = _.find(userJSON,["id", req.params.id]);
-    res.send(user);*/
-}
 
 
 ///////////////// CREATE USER ///////////////////////
@@ -43,6 +21,32 @@ console.log("User1 is created")
 res.redirect("/");
 }
 
+////////////////// GET USER ////////////////////////////
+
+async function getUser(req,res){
+    const users = await userModel.find({});
+    //const users = await userModel.findOne({age: {$gt:30}});
+    console.log(users);
+    res.send(users);
+   /* let userDatabaseJSON = fs.readFileSync("./public/storage.json");
+    const userJSON=JSON.parse(userDatabaseJSON);
+    res.render("user", user=userJSON);*/
+}
+
+
+////////////////// GET USERNAME ///////////////////////////
+async function getUserName(req,res){
+    const user= await userModel.findOne({name: req.params.name})
+    user.parent = "63bd38ae9388174f2165a904";
+    await user.save();
+    res.send(user);
+    
+    /*
+    let userDatabaseJSON= fs.readFileSync("./public/storage.json");
+    const userJSON= JSON.parse(userDatabaseJSON);
+    const user = _.find(userJSON,["id", req.params.id]);
+    res.send(user);*/
+}
 
 ////////////////////// DELETE USER /////////////////////////
 
@@ -53,9 +57,12 @@ async function deleteUser(req, res) {
     console.log(user);
     
     res.json({message: "User deleted!"});
+
     
     //ADD ERROR HANDLING IN TRY/CATCH!
 }
+
+
 
 
 

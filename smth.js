@@ -22,7 +22,7 @@
  
  app.get("/", (req, res) => {
      res.render('index', { name: "Nath", length: 5,/* ** */ tasks: tasksArray });
-     res.redirect("/tasks");
+     //res.redirect("/tasks");
  
  })
  
@@ -39,7 +39,6 @@
          //res.send(tasksArray);
          res.redirect("/");
      })
-     .post(urlencodedParser, (req, res), newTask);
          
  
  app.listen({ path: hostname, port: port }, (error) => {

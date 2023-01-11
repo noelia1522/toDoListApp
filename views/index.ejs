@@ -14,26 +14,41 @@
 <body>
     <div class="container">
         <h2>A simple To do List APP</h2>
-        <form action="http://localhost:3000/tasks" method="POST">
+        <form action="http://localhost:3001/tasks" method="POST">
             <input type="text" name="newTask" placeholder="Add a New Task">
             <button type="submit">
                 Add Task
             </button>
-        </form>
 
-        <div >
-            
-                <% task.forEach(task=>{ %>
-                        <div class="task">
-                            <span><%=task.text %></span>
-                    <button class="buttn" id="<%=task.id %>"> Delete</button></div>
-                    <% }) %>
-                
-        
+
+        </form>
+        <div>
+            <button type="submit"> Delete Task</button>
+            <button type="submit">Delete All Tasks</button>
         </div>
-        <script>
+
+        <div>
+            <% task.forEach(task=>{ %>
+                <div class="task">
+                    <span>
+                        <%=task.text %>
+                    </span>
+                    <input type="checkbox" class="doneCheckbox" id="<%=task.id %>"></input>
+                </div>
+                <% }) %>
+        </div>
+    </div>
+
+    <script>
+        function deleteTask(){
+            let selectedTasks = document.querySelectorAll('input[type=checkbox]');
+            let tasksToDelete = []
+            for(task in selectedTasks){
+                tasksToDelete.push(task.value)
+            }
         
-        </script>
+        }
+    </script>
 </body>
 
 </html>

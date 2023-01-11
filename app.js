@@ -1,7 +1,7 @@
 //Here you write the server
 const express = require("express"); //create the server
 const static = require("serve-static");
-const taskRoutes = require("./routes/taskRoutes");
+const taskRoutesdb = require("./routes/taskRoutesdb");
 const dotenv = require("dotenv")
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
@@ -25,7 +25,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))// para las imagenes
 
-app.use("/tasks", taskRoutes);
+app.use("/tasks", taskRoutesdb);
 app.use("/users", userRoutes);
 
 
