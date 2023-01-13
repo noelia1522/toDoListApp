@@ -8,7 +8,7 @@ const userModel = require("../models/userModel")
 ///////////////// CREATE USER ///////////////////////
 
 async function createUser(req,res){
-    const user1 = await userModel.create({
+   try{ const user1 = await userModel.create({
 //aqui coges los valores del input (html) extraidos de lo que insertas en la pagina
 //es la parte del user_name, user_email etc lo que tiene que coincidir con el html
     name: req.body.user_name,
@@ -19,6 +19,13 @@ async function createUser(req,res){
 console.log(user1);
 console.log("User1 is created")
 res.redirect("/");
+   }
+
+catch(error){
+    console.log(error.message);
+    res.sendStatus(404);
+    return;
+}
 }
 
 ////////////////// GET USER ////////////////////////////

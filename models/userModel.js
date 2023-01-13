@@ -14,10 +14,10 @@ const userSchema = new mongoose.Schema({
 
     age:{
         type:Number,
-        min:18
-        //validator:{
-           // validator:a => a > 18,
-           // message: "you are under 18! you cannot enter!"
+        min:18,
+        validator:{
+           validator:a => a > 18,
+           message: "you are under 18! you cannot enter!"
         },
     
     parent: {
