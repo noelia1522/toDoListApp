@@ -25,7 +25,8 @@ const userSchema = new mongoose.Schema({
         ref:"User" //objectId is refereing to User collection
     }
 
-})
+}})
+
 
 module.exports = new mongoose.model("User", userSchema);
 //"user" es el nombre de la coleccion

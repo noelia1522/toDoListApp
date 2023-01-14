@@ -25,7 +25,6 @@
      //res.redirect("/tasks");
  
  })
- 
      //iterate the array adding elements with updated id
      .post(urlencodedParser, (req, res) => {
          console.log(req.body.newTask);

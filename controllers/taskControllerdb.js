@@ -3,18 +3,15 @@ const _ = require("lodash");
 const taskModel = require("../models/taskModel");
 
 
-
 /////////////////////   CREATE TASK   //////////////////////
 
 async function createTasks(req, res) {
-    const task1 = await taskModel.create({
-        text: req.body.newTask
+    const create_task = await taskModel.create({
+        task: req.body.newTask
     })
     res.redirect("/tasks");
-    console.log(task1);
+   
 }
-
-
 
 
 ////////////////////  GET TASKS   //////////////////////////
@@ -22,16 +19,51 @@ async function createTasks(req, res) {
 
 //para hacer el display de las tasks 
 async function getTasks(req, res) {
-    const task =await taskModel.find({});
-    console.log(task);
-    res.render('index', {task: task});
+    const display_task =await taskModel.find({});
+    
+    res.render('index', {task: display_task});
 }
 
 
 
-////////////////////// GET TASK ID ///////////////////////
-function deleteTask(req, res) {
+////////////////////// REMOVE TASK + DELETE MORE THAN 1 TASK BUT NOT ALL///////////////////////
+async function removeTask(req, res) {
+    
+    const completeTask = req.body.ids;
+console.log(completeTask);
+    if(completeTask.length>1) {        //if more than one tasks selected, then we deal with array     
+        for (task of completeTask) {
+            await taskModel.deleteOne( {task: task}, 
+                
+                function (error){
+               
+                if (error) console.log(error);
+               
+                res.redirect("/tasks");
+            });
+        }
+    }
+    else {
+        await taskModel.deleteOne( {task: completeTask[0]}, function(error){
+            if (error) console.log(error);
+            res.redirect("/tasks");
+        });
+    }
+};
+
+
+//////////////////// DELETE ALL TASKS //////////////////////
+function deleteAll(req, res) {
+    taskModel.deleteMany({})
+    .then(() => {
+        res.redirect("/tasks");
+    })
+    .catch(error => {
+        console.log(error);
+        next(error);
+    });
+};
 
 
 
-module.exports = { getTaskById, getTasks, createTasks }
+module.exports = { deleteAll, getTasks, createTasks,removeTask }

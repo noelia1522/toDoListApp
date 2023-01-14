@@ -34,6 +34,13 @@ app.use("/users", userRoutes);
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 })
+
+
+app.get('/tasks', (req,res)=>{
+    res.sendFile(__dirname + "../views/index.ejs");
+})
+
+
 app.listen({ path: hostname, port: port }, (error) => {
     if (error) console.log("Error");
     else console.log(`Server is running on port ${port}..`);
@@ -51,3 +58,4 @@ app.post("/login", (req, res) => {
     console.log(req.body);
     res.redirect("/tasks");
 })
+

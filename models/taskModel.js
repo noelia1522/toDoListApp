@@ -1,15 +1,16 @@
 //estructura que usa para crear coleccion en atlas mongo db
-
 const mongoose = require("mongoose");
 
 const taskSchema = new mongoose.Schema({
+   task:  String
+/*
     text: String,
     completed: false,
     parent:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Task"
     }
-
+*/
 })
 
 
