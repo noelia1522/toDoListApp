@@ -19,10 +19,17 @@ async function RegisterUser(req,res,next){
             })
             console.log(registeredUser)
             console.log("user is registered")
-            res.redirect("/tasks");
+            res.redirect("/");
         }
     }
     catch(err){
         next(err);
     }
 }
+
+
+/////////////////// login user ////////////
+
+
+
+
