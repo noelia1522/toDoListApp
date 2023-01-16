@@ -12,8 +12,12 @@ const userSchema = new mongoose.Schema({
         minlength: 8
     } ,
 
-    password:{
-        type:String,
+    age:{
+        type:Number,
+        min:18,
+        validator:{
+           validator:a => a > 18,
+           message: "you are under 18! you cannot enter!"
         },
     
     parent: {
@@ -21,7 +25,7 @@ const userSchema = new mongoose.Schema({
         ref:"User" //objectId is refereing to User collection
     }
 
-})
+}})
 
 
 module.exports = new mongoose.model("User", userSchema);

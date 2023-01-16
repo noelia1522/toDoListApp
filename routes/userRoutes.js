@@ -5,8 +5,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
 //router.get("/:id", userController.getUserById);
-router.get("/", userController.getUser);
-router.post("/", urlencodedParser, userController.createUser);
+router.get("/users", userController.getUser);
+router.post("/createUser", urlencodedParser, userController.createUser);
 router.get("/:name", urlencodedParser, userController.getUserName);
 router.delete('/:name', userController.deleteUser)
 

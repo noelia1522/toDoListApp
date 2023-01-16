@@ -41,12 +41,12 @@ app.use(handleError);
 
 //get main page
 
-app.get("/", (req, res) => {
+/*app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 })
+*/
 
-
-app.get('/tasks', (req,res)=>{
+app.get('/', (req,res)=>{
     res.sendFile(__dirname + "../views/index.ejs");
 })
 
