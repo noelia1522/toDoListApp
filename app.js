@@ -5,6 +5,10 @@ const taskRoutesdb = require("./routes/taskRoutesdb");
 const dotenv = require("dotenv")
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
+const handleError= require("./middleware/handlingErrors");
+const flash=require('express-flash');
+const session= require("express-session");
+
 
 dotenv.config();
 const hostname = "localhost";
@@ -23,10 +27,16 @@ mongoose.connect(`${process.env.DB_SERVER}`)
 const app = express();
 app.use(express.json());
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + '/public'))// para las imagenes
+app.use(express.static(__dirname + '/public'))// para las imagenes7
+app.use(flash());
+app.use(session());
+
 
 app.use("/tasks", taskRoutesdb);
 app.use("/users", userRoutes);
+app.use(handleError);
+
+
 
 
 //get main page
@@ -59,3 +69,13 @@ app.post("/login", (req, res) => {
     res.redirect("/tasks");
 })
 
+app.get('/', function (req, res) {
+    req.flash('info', 'Welcome');
+    res.render('index', {
+      title: 'Home'
+    })
+  });
+app.get('/addFlash',function(req,res){
+    req.flash('success', 'Flash message Added');
+    res.redirect('/');
+})
