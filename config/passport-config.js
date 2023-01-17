@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy //importing the strategy we use, local : local strategy
 const bcrypt = require('bcrypt') //to hash the password
-const User= require("../models/user")
+const User= require("../models/userModel")
 
 //Working with db we have to use await and async!!!!
 

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const authSchema = new moongose.Schema({
+const authSchema = new mongoose.Schema({
     name: {
         type: String,
     },
@@ -10,7 +10,7 @@ const authSchema = new moongose.Schema({
     },
     password: {
         required: true,
-        type: string
+        type: String
     }
 })
 

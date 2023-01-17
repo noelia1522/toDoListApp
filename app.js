@@ -8,6 +8,7 @@ const userRoutes = require("./routes/userRoutes");
 const handleError= require("./middleware/handlingErrors");
 const flash=require('express-flash');
 const session= require("express-session");
+const authRoutes = require("./routes/authRoutes");
 
 
 dotenv.config();
@@ -34,9 +35,8 @@ app.use(session());
 
 app.use("/tasks", taskRoutesdb);
 app.use("/users", userRoutes);
+app.use("/", authRoutes);
 app.use(handleError);
-
-
 
 
 //get main page
@@ -59,15 +59,15 @@ app.listen({ path: hostname, port: port }, (error) => {
 
 //get login page
 app.get("/login", (req, res) => {
-    res.sendFile(__dirname + "/login.html");
+    res.render("login");
 })
 
 //take the username and the email and display it in console and display received message.
 
-app.post("/login", (req, res) => {
+/*app.post("/login", (req, res) => {
     console.log(req.body);
     res.redirect("/tasks");
-})
+})*/
 
 app.get('/', function (req, res) {
     req.flash('info', 'Welcome');
