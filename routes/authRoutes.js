@@ -22,7 +22,6 @@ router.get('/login', checkNotAuthenticated, (req, res) => {//if the user is logg
   res.render('login.ejs')//this function is implimented
 })
 
-
 router.post('/login', checkNotAuthenticated, loginUser)
 
 
