@@ -24,7 +24,6 @@ router.get('/login', checkNotAuthenticated, (req, res) => {//if the user is logg
 
 router.post('/login', checkNotAuthenticated, loginUser)
 
-
 //////////////// REGISTER PAGE /////////////////////
 
 router.get('/register', checkNotAuthenticated, (req, res) => {

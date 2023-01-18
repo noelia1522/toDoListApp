@@ -12,6 +12,7 @@ async function RegisterUser(req, res, next) {
         if (!name || !email || !password) {
             throw new BadRequest("Missing required field!")
         } else {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10)//poner req.body.password,10)
             const registeredUser = await authModel.create({
                 name: name,
                 email: email,
