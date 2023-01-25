@@ -1,57 +1,61 @@
 const express = require('express')
 const router = express.Router();
 const passport = require('passport')
-const bcrypt = require('bcrypt')
 const initializePassport = require('../config/passport-config')
-//we import the config file 
-const { RegisterUser, loginUser, logoutUser } = require('../controllers/authController');
+const authController = require("../controllers/authController")
+
+//const users = []
 
 
-initializePassport(passport)
+//this is only used cause we are not using a DB for now and we do the checks on the array users
+//initializePassport(		
+  //passport,
+ // email => users.find(user => user.email === email),
+ // id => users.find(user => user.id === id)
+//)
 
-//////////////// MAIN PAGE ///////////////////////
+router.get('/', authController.checkAuthenticated, (req, res) => {
+    res.render('index.ejs', { name: req.user.name })
+  })
+  
+  router.get('/login', authController.checkNotAuthenticated, (req, res) => {
+    res.render('login.ejs')
+  })
+  
+  router.post('/login', authController.checkNotAuthenticated, (req, res, next) => {
+    passport.authenticate('local', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+      failureFlash: true
+    })(req, res, next);
+  });
+  
+  router.get('/register', authController.checkNotAuthenticated, (req, res) => {
+    res.render('register.ejs')
+  })
+  
+  router.post('/register', authController.checkNotAuthenticated, authController.register)
 
-router.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs', { name: req.user.name })
-})
+  
+  router.delete('/logout', (req, res) => {
+    req.logOut()        //also passport function
+    res.redirect('/login')
+  })
 
-
-///////////// LOGIN PAGE ///////////////////////
-
-router.get('/login', checkNotAuthenticated, (req, res) => {//if the user is logged in, she shouldn't see the login page
-  res.render('login.ejs')//this function is implimented
-})
-
-router.post('/login', checkNotAuthenticated, loginUser)
-
-//////////////// REGISTER PAGE /////////////////////
-
-router.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('register.ejs')
-})
-
-router.post('/register', checkNotAuthenticated, RegisterUser)
-
-//////////// LOGOUT ////////////////
-
-router.delete('/logout', logoutUser)
-
-
-//helper middleware
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {    //a passport function
-    return next()
+  /*
+  function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {    //a passport function
+      return next()
+    }
+    res.redirect('/login')
   }
-  res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/')
+  
+  function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/')
+    }
+    next()
   }
-  res.redirect('/register')
-  next()
-}
+*/
 
-
-module.exports = router;
+  module.exports = router;

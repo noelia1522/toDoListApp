@@ -1,70 +1,85 @@
-const fs = require("fs");
-const _ = require("lodash");
-const authModel = require("../models/authModel");
-const { BadRequest } = require("../utils/errors");
+const bcrypt = require('bcrypt')
+const User = require("../models/userModel");
+const passport = require('passport')
+const initializePassport = require('../config/passport-config')
 
+function showIndex (req, res){
+    res.render('index.ejs', { name: req.user.name })
+}
 
-///////////// Register User ///////////////////////
-async function RegisterUser(req, res, next) {
-    const { name, email, password } = req.body;
+function showLogin (req, res){
+    res.render('login.ejs')
+}
+
+function showRegister (req, res){
+    res.render('register.ejs')
+}
+
+async function register(req, res) {
+    //Create a has version of the passwd
+    console.log(req.body.password)
+    console.log(req.body.name)
+    console.log(req.body.email)
+    const hashedPassword = await bcrypt.hash(req.body.password, 10); //what's the number for? salt = 10;
 
     try {
-        if (!name || !email || !password) {
-            throw new BadRequest("Missing required field!")
-        } else {
-            const hashedPassword = await bcrypt.hash(req.body.password, 10)//poner req.body.password,10)
-            const registeredUser = await authModel.create({
-                name: name,
-                email: email,
-                password: hashedPassword
-            })
-            console.log(registeredUser)
-            console.log("user is registered")
-            res.redirect("/");
-        }
+        await User.create({
+            name: req.body.name,  //mind the names in the HTML form!
+            email: req.body.email,
+            password: hashedPassword  //saving the hashed not the plain text!
+        })
+        res.redirect('/login')
     }
-    catch (err) {
-        next(err);
+    catch (error) {
+        console.log(error.message);
+        res.redirect('register');
     }
 }
 
-
-/////////////////// login user ////////////
-
-async function loginUser(req, res,next) {
-    const { email, password } = req.body;
-    try {
-        if (!email || !password) {
-            throw new BadRequest("Missing required field!")
-        } else {
-            passport.authenticate("local", {
-                successRedirect: '/',
-                failureRedirect: '/login', //if email is repetetive or passwordi s wrong
-                failureFlash: true
-            })
-        }
-    }
-    catch(err){
-        next(err)
-    }
-
+initializePassport(passport)
+//Importan note: passport.authenticate it's a function and thus, it
+// should have the parameters req, res and next
+function logIn(req, res, next){
+    passport.authenticate("local", { //'local' is the strategy we use
+        successRedirect: '/',
+        failureRedirect: '/login', //if email or pass is wrong
+        failureFlash: true
+        }) (req,res)
+        
 }
 
-////////////// LOGOUT ///////////////////
-async function logoutUser(req,res,next){
-    req.logOut();
-    res.clearCookie("connect.sid", { doamin: "localhost", path: "/" });
-  
+function logOut(req, res) {
+    //Predifiend method in the request
+    req.logOut;
+
+    //delete the cookie
+    res.clearCookie("connect.sid", { path: "/" });
+
     //logged out and redirect to login
-  
     req.session.destroy(function (error) {
-      if (error) {
-        return next(error)//check it later
-      }
-      res.redirect('/login');
+        if (error) {
+            return next(error) //chek later
+        }
+        //if no error, then redirect
+        res.redirect('/login');
     })
-  }
+}
+
+//helper middleware
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {    //a passport function
+        return next()
+    }
+    res.redirect('/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return res.redirect('/')
+    }
+    next()
+}
 
 
-module.exports = { RegisterUser, loginUser, logoutUser }
 
+module.exports = { checkAuthenticated, checkNotAuthenticated, logOut, register, showIndex, showLogin, showRegister, logIn }

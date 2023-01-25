@@ -1,13 +1,16 @@
-const router = require("express").Router();
-const taskControllerdb = require("../controllers/taskControllerdb");
+const router = require("express"). Router();
+const TaskController = require("../controllers/taskControllerdb");
 const bodyParser = require("body-parser");
-const { urlencoded } = require("body-parser");
-const urlencodedParser = bodyParser.urlencoded({extended:false});
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+//const { BadRequest, NotFound } = require('../utils/errors');
 
-router.get("/", taskControllerdb.getTasks);
-router.post("/",urlencodedParser, taskControllerdb.createTasks);
-router.delete("/",urlencodedParser, taskControllerdb.removeTask);
-router.post("/tasks/deleteall",urlencodedParser,taskControllerdb.deleteAll);
+//router.get("/:id", TaskController.getTaskById);
+router.get("/", TaskController.getTasks);  //not necessary to have "/tasks", actually must remove it or will duplicate the path /tasks/tasks
+router.post("/", urlencodedParser, TaskController.createTask);
+
+router.post("/deleteTask", urlencodedParser, TaskController.deleteTask);
+router.post("/deleteAll", urlencodedParser, TaskController.deleteAll); //why aren0t we using the delete?? but post instead?
+
 module.exports = router;
 
 

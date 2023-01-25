@@ -3,6 +3,72 @@ const _ = require("lodash");
 const taskModel = require("../models/taskModel");
 
 
+//when to use import and when require?
+const { v4: uuidv4 } = require("uuid");
+const { reduce } = require("lodash");
+
+
+async function createTask(req, res) {
+    //read from index.html
+    const newTask = await taskModel.create({
+        task: req.body.task
+    })
+    //console.log("suceessss: ", newTask);
+    res.redirect("/");
+
+}
+
+
+async function getTasks(req, res) {
+    const tasks = await taskModel.find();
+    res.send(tasks);
+}
+
+
+ function getTaskById(req, res) {
+    let taskDatabaseJSON = fs.readFileSync("./public/storage.json");
+    const taskJSON = JSON.parse(taskDatabaseJSON);
+    const task = _.find(taskJSON, ["id", req.params.id]);
+    res.send(task);
+} 
+
+function deleteTask(req, res) {
+    try {
+        let checkedTasks = req.body.checkedTasks; //array with the selected tasks from FrontEnd
+        console.log(checkedTasks);
+        checkedTasks.forEach(async element => {
+            const task = await taskModel.deleteOne({ task: element });
+        });
+
+        console.log("inside deleteTask CONTROLLER");
+        console.log(checkedTasks);
+
+        res.json({
+            message: "Tasks deleted!",
+            success: true,
+            redirect_path: "/"
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+function deleteAll(req, res) {
+
+}
+
+module.exports = { createTask, getTasks, deleteTask, deleteAll }
+
+
+
+
+
+
+
+
+
+/*
+
 /////////////////////   CREATE TASK   //////////////////////
 
 async function createTasks(req, res) {

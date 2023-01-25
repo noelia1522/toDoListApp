@@ -11,6 +11,7 @@ const flash=require('express-flash');
 const session= require("express-session");
 const passport = require("passport");
 const authRoutes = require("./routes/authRoutes");
+const methodOverride = require ("method-override")
 
 
 dotenv.config();
@@ -21,6 +22,9 @@ const port = process.env.PORT || 3001;
 const app = express();
 app.use(express.json());
 app.set("view engine", "ejs");
+app.use(express.urlencoded({extended:false}))
+app.use(express.static("public"))
+app.use(methodOverride("_method"))
 
 app.use(session({
     secret: "secret line",
@@ -46,11 +50,12 @@ mongoose.set('strictQuery', true);
 mongoose.connect(`${process.env.DB_SERVER}`)
     .then(() => { console.log("Connected to database server..."); })
     .catch((err) => { console.log(err); })
+    
 
-
+app.use("/", authRoutes);
 app.use("/tasks", taskRoutesdb);
 app.use("/users", userRoutes);
-app.use("/", authRoutes);
+
 app.use(handleError);
 
 

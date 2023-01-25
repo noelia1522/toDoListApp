@@ -6,7 +6,84 @@ const { BadRequest, NotFound } = require("../utils/errors");
 const { nextTick } = require("process");
 
 
+/* function logUserIn(req, res) {
+    let userDatabaseJSON = fs.readFileSync("public/userStorage.json");
+    const userJSON = JSON.parse(userDatabaseJSON);
+    //values from FORM
+    let user = req.body.username;
+    let pass = req.body.password;
+    let usr2log = userJSON.find(usr => {
+        return usr.username === user
+    })
+    if (usr2log === undefined) {
+        console.log('no user!');
+        //error = "User doesn't exist!" 
+        //res.render("login",  {error : error} );
+    }
+    else {
+        if (usr2log.password === pass)
+            res.redirect("/tasks");
+        else {
+            console.log("Wrong pass");
+            //error = "Oops! That's not the password" 
+            //res.render("login", { error: error});
+        }
+    }
+} */
+async function createUser(req, res) {
+    try {
+        //read from index.html
+        const newUser = await userModel.create({
+            name: req.body.name,
+            email: req.body.email,
+            age: req.body.age,
+            parent: req.body.parent
+        });
+        console.log(newUser);
+        res.redirect("/");
+    } catch (error) {
+        console.log(error.message); //The message is the one defined in the model
+        res.sendStatus(404);
+        return;
+    }
+}
 
+
+async function getAllUsers(req, res) {
+    const users = await userModel.find({});
+    //const users = await userModel.find().populate("parent"); //use populate method to display sub asignaciones
+    res.send(users);
+}
+
+
+async function getUserByName(req, res) {
+    //print the user that is linked in parent field
+    const user = await userModel.findOne({ name: req.params.name })
+    //This is to add some fields or any info 
+    //user.parent = "63bc3b13acf92cd740512227";
+    //await user.save();
+    res.send(user);
+}
+
+async function deleteUser(req, res) {
+    try {
+        const user = await userModel.deleteOne({ name: req.params.name });
+        console.log(user);
+        res.json({
+            message: "User deleted!",
+            success: true,
+            redirect_path: "/"
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+
+
+module.exports = { getAllUsers, createUser, getUserByName, deleteUser }
+
+/*
 ///////////////// CREATE USER ///////////////////////
 
 async function createUser(req, res,next) {
@@ -53,7 +130,7 @@ async function getUser(req, res) {
 
     /* let userDatabaseJSON = fs.readFileSync("./public/storage.json");
      const userJSON=JSON.parse(userDatabaseJSON);
-     res.render("user", user=userJSON);*/
+     res.render("user", user=userJSON);
 }
 
 
@@ -72,11 +149,10 @@ async function getUserName(req, res) {
     } catch (error) {
         next(error)
     }
-    /*
     let userDatabaseJSON= fs.readFileSync("./public/storage.json");
     const userJSON= JSON.parse(userDatabaseJSON);
     const user = _.find(userJSON,["id", req.params.id]);
-    res.send(user);*/
+    res.send(user);
 }
 
 ////////////////////// DELETE USER /////////////////////////
