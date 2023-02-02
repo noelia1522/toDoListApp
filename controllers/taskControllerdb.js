@@ -14,14 +14,16 @@ async function createTask(req, res) {
         task: req.body.task
     })
     //console.log("suceessss: ", newTask);
-    res.redirect("/");
+   // res.redirect("/");
+    res.json(newTask)
 
 }
 
 
 async function getTasks(req, res) {
     const tasks = await taskModel.find();
-    res.send(tasks);
+    //res.send(tasks);
+    res.json(tasks)
 }
 
 
@@ -32,12 +34,15 @@ async function getTasks(req, res) {
     res.send(task);
 } 
 
-function deleteTask(req, res) {
-    try {
+async function deleteTask(req, res) {
+   const response = await taskModel.deleteOne({_id: req.body._id});
+    res.send(response);
+    /*try {
         let checkedTasks = req.body.checkedTasks; //array with the selected tasks from FrontEnd
         console.log(checkedTasks);
         checkedTasks.forEach(async element => {
             const task = await taskModel.deleteOne({ task: element });
+            res.json(task)
         });
 
         console.log("inside deleteTask CONTROLLER");
@@ -50,7 +55,7 @@ function deleteTask(req, res) {
         });
     } catch (error) {
         console.log(error);
-    }
+    }*/
 }
 
 function deleteAll(req, res) {

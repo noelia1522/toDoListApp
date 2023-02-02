@@ -52,7 +52,7 @@ mongoose.connect(`${process.env.DB_SERVER}`)
     .catch((err) => { console.log(err); })
     
 
-app.use("/", authRoutes);
+//app.use("/", authRoutes);
 app.use("/tasks", taskRoutesdb);
 app.use("/users", userRoutes);
 
