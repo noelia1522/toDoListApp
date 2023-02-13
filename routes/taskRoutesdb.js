@@ -8,8 +8,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 router.get("/", TaskController.getTasks);  //not necessary to have "/tasks", actually must remove it or will duplicate the path /tasks/tasks
 router.post("/", urlencodedParser, TaskController.createTask);
 
-router.delete("/remove", urlencodedParser, TaskController.deleteTask);
-router.post("/deleteAll", urlencodedParser, TaskController.deleteAll); //why aren0t we using the delete?? but post instead?
+router.post("/remove", urlencodedParser, TaskController.deleteTask);
+//router.post("/deleteAll", urlencodedParser, TaskController.deleteAll); //why aren0t we using the delete?? but post instead?
 
 module.exports = router;
 

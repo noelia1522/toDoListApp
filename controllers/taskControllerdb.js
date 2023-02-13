@@ -35,7 +35,7 @@ async function getTasks(req, res) {
 } 
 
 async function deleteTask(req, res) {
-   const response = await taskModel.deleteOne({_id: req.body._id});
+   const response = await taskModel.deleteOne({task: req.body.task});
     res.send(response);
     /*try {
         let checkedTasks = req.body.checkedTasks; //array with the selected tasks from FrontEnd
